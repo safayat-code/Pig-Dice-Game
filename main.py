@@ -89,6 +89,9 @@ class Game:
             if name == "":
                 print("[red]Name cannot be empty.[/red]")
                 continue
+            if len(name) > 15:
+                print("[red]Name is too long. Use 15 characters or fewer.[/red]")
+                continue
             if name in self.used_names:  # SET lookup for duplicate check
                 print("[red]That name is already taken. Choose another.[/red]")
                 continue
