@@ -1,16 +1,3 @@
-"""
-Pig Dice Game
--------------
-A console-based multiplayer Pig Dice Game built for the Python Mid-Term Project.
-
-Python concepts demonstrated:
-- OOP (Dice, Player, Game classes)
-- List, Tuple, Set, Dictionary
-- File handling (JSON) with exception handling
-- NumPy for score analysis / statistics
-- Functions, loops, branching, validation
-"""
-
 import random
 import json
 import numpy as np
@@ -20,7 +7,7 @@ from rich.table import Table
 DATA_FILE = "data.json"
 WINNING_SCORE = 50
 
-# TUPLE: fixed, unchanging configuration data -> score performance bands
+# fixed score bands (tuple)
 SCORE_BANDS = (
     ("Beginner", 0, 15),
     ("Rising Star", 16, 30),
@@ -29,33 +16,29 @@ SCORE_BANDS = (
 )
 
 
-# ---------------- Dice class ----------------
+# Dice class
 class Dice:
-    """Represents a single six-sided die."""
-
     def roll(self):
         return random.randint(1, 6)
 
 
-# ---------------- Player class ----------------
+# Player class
 class Player:
-    """Represents one player in the game."""
-
     def __init__(self, id, name):
         self.id = id
         self.name = name
         self.score = 0
-        self.turn_history = []  # LIST: keeps every turn's score for this player
+        self.turn_history = []  # list of past turn scores
 
+    # get performance band
     def get_band(self):
-        """Return the performance band (from the TUPLE) for the player's score."""
         for band_name, low, high in SCORE_BANDS:
             if low <= self.score <= high:
                 return band_name
         return "Unranked"
 
+    # convert player to dictionary for saving
     def to_dict(self):
-        # DICTIONARY: represent one player's record as key-value pairs
         return {
             "id": self.id,
             "name": self.name,
@@ -64,25 +47,26 @@ class Player:
         }
 
 
-# ---------------- Game class ----------------
+# Game class
 class Game:
     def __init__(self):
-        self.players = []          # LIST of Player objects
+        self.players = []
         self.dice = Dice()
-        self.used_names = set()    # SET: prevents duplicate player names
+        self.used_names = set()  # tracks names already taken
 
-    # ---------- input & validation ----------
+    # get valid number of players
     def get_valid_number_of_players(self):
         while True:
             try:
                 n = input("Enter number of players (2-4): ").strip()
-                n = int(n)  # raises ValueError if not numeric
+                n = int(n)
                 if n < 2 or n > 4:
                     raise ValueError
                 return n
             except ValueError:
                 print("[red]Invalid input. Please enter a whole number between 2 and 4.[/red]")
 
+    # get valid player name
     def get_valid_player_name(self, default_id):
         while True:
             name = input(f"Enter name for Player {default_id}: ").strip()
@@ -92,12 +76,13 @@ class Game:
             if len(name) > 15:
                 print("[red]Name is too long. Use 15 characters or fewer.[/red]")
                 continue
-            if name in self.used_names:  # SET lookup for duplicate check
+            if name in self.used_names:
                 print("[red]That name is already taken. Choose another.[/red]")
                 continue
             self.used_names.add(name)
             return name
 
+    # create players
     def create_players(self):
         n = self.get_valid_number_of_players()
         self.players = []
@@ -106,7 +91,7 @@ class Game:
             name = self.get_valid_player_name(i + 1)
             self.players.append(Player(i + 1, name))
 
-    # ---------- display ----------
+    # show score board
     def show_scores(self):
         table = Table(title="Score Board")
         table.add_column("Player")
@@ -118,8 +103,8 @@ class Game:
 
         print(table)
 
+    # show statistics using numpy
     def show_statistics(self):
-        """Use NumPy to compute score statistics across all players' turn histories."""
         all_turns = []
         for p in self.players:
             all_turns.extend(p.turn_history)
@@ -140,13 +125,12 @@ class Game:
         table.add_row("Std deviation", f"{np.std(arr):.2f}")
         print(table)
 
-        # Per-player average using NumPy
         for p in self.players:
             if p.turn_history:
                 avg = np.mean(np.array(p.turn_history))
                 print(f"[cyan]{p.name}[/cyan]: average turn score = {avg:.2f}")
 
-    # ---------- file handling ----------
+    # save game
     def save_game(self):
         try:
             data = [p.to_dict() for p in self.players]
@@ -156,6 +140,7 @@ class Game:
         except OSError as e:
             print(f"[red]Could not save game: {e}[/red]")
 
+    # load game
     def load_game(self):
         try:
             with open(DATA_FILE, "r") as f:
@@ -183,7 +168,7 @@ class Game:
             print("[red]Saved file is corrupted or invalid. Starting fresh.[/red]")
             return False
 
-    # ---------- gameplay ----------
+    # player turn
     def play_turn(self, player):
         print(f"\n[bold yellow]{player.name}'s Turn[/bold yellow]")
         print(f"Current Score: {player.score}")
@@ -213,16 +198,17 @@ class Game:
             print(f"Turn score so far: {temp}")
 
         player.score += temp
-        player.turn_history.append(temp)  # store this turn in the player's LIST
+        player.turn_history.append(temp)
         print(f"Total score: {player.score}")
 
+    # check winner
     def check_winner(self):
         for p in self.players:
             if p.score >= WINNING_SCORE:
                 return p
         return None
 
-    # ---------- main loop ----------
+    # start game
     def start(self):
         print("[bold green]Welcome to Pig Dice Game[/bold green]")
 
@@ -243,12 +229,12 @@ class Game:
 
                 winner = self.check_winner()
                 if winner:
-                    print(f"\n[bold green]🏆 Winner: {winner.name}[/bold green]")
-                    print(f"Final Score: {winner.score}")
+                    print(f"\n[bold green]Winner: {winner.name}[/bold green]")
+                    print(f"Score: {winner.score}")
                     self.show_statistics()
                     return
 
 
-if __name__ == "__main__":
-    game = Game()
-    game.start()
+# run game
+g = Game()
+g.start()
