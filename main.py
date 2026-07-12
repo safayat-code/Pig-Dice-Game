@@ -231,6 +231,7 @@ class Game:
                 if winner:
                     print(f"\n[bold green]Winner: {winner.name}[/bold green]")
                     print(f"Score: {winner.score}")
+                    print(f"Performance Band: {winner.get_band()}")
                     self.show_statistics()
                     return
 
