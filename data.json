@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "name": "Rafi",
+    "score": 5,
+    "turn_history": [
+      5
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Nusrat",
+    "score": 8,
+    "turn_history": [
+      8
+    ]
+  }
+]
