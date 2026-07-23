@@ -126,7 +126,6 @@ class Game:
         print(table)
 
         player_table = Table(title="Player Statistics")
-
         player_table.add_column("Player", style="cyan")
         player_table.add_column("Turns Played", justify="center")
         player_table.add_column("Average Score", justify="center")
@@ -173,7 +172,8 @@ class Game:
                 self.players.append(p)
                 self.used_names.add(p.name)
 
-            print("[green]Game Loaded[/green]")
+            print("[bold green]Game Loaded Successfully![/bold green]")
+            print(f"[green]Players Loaded: {len(self.players)}[/green]")
             return True
 
         except FileNotFoundError:
