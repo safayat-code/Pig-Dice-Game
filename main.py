@@ -115,14 +115,14 @@ class Game:
 
         arr = np.array(all_turns)
 
-        table = Table(title="Game Statistics (NumPy)")
-        table.add_column("Metric")
-        table.add_column("Value")
+        table = Table(title="Game Statistics Summary")
+        table.add_column("Metric", style="cyan", justify="left")
+        table.add_column("Value", style="green", justify="center")
         table.add_row("Total turns played", str(arr.size))
-        table.add_row("Average turn score", f"{np.mean(arr):.2f}")
+        table.add_row("Average Score per Turn", f"{np.mean(arr):.2f}")
         table.add_row("Highest turn score", str(np.max(arr)))
         table.add_row("Lowest turn score", str(np.min(arr)))
-        table.add_row("Std deviation", f"{np.std(arr):.2f}")
+        table.add_row("Standard Deviation", f"{np.std(arr):.2f}")
         print(table)
 
         for p in self.players:
@@ -136,9 +136,11 @@ class Game:
             data = [p.to_dict() for p in self.players]
             with open(DATA_FILE, "w") as f:
                 json.dump(data, f, indent=2)
-            print("[green]Game Saved[/green]")
+            print("[green]Game progress saved successfully[/green]")
+            print(f"[green]Saved Players: {len(self.players)}[/green]")
         except OSError as e:
             print(f"[red]Could not save game: {e}[/red]")
+            
 
     # load game
     def load_game(self):
