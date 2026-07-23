@@ -125,10 +125,23 @@ class Game:
         table.add_row("Standard Deviation", f"{np.std(arr):.2f}")
         print(table)
 
+        player_table = Table(title="Player Statistics")
+
+        player_table.add_column("Player", style="cyan")
+        player_table.add_column("Turns Played", justify="center")
+        player_table.add_column("Average Score", justify="center")
+
         for p in self.players:
             if p.turn_history:
                 avg = np.mean(np.array(p.turn_history))
-                print(f"[cyan]{p.name}[/cyan]: average turn score = {avg:.2f}")
+
+                player_table.add_row(
+                p.name,
+                str(len(p.turn_history)),
+                f"{avg:.2f}"
+            )
+
+        print(player_table)
 
     # save game
     def save_game(self):
@@ -231,6 +244,9 @@ class Game:
 
                 winner = self.check_winner()
                 if winner:
+                    print("\n" + "=" * 40)
+                    print("[bold green]🏆 GAME OVER 🏆[/bold green]")
+                    print("=" * 40)
                     print(f"\n[bold green]Winner: {winner.name}[/bold green]")
                     print(f"Score: {winner.score}")
                     print(f"Performance Band: {winner.get_band()}")
