@@ -73,11 +73,11 @@ class Game:
             if name == "":
                 print("[red]Name cannot be empty.[/red]")
                 continue
-            if len(name) > 15:
-                print("[red]Name is too long. Use 15 characters or fewer.[/red]")
+            if len(name) > 18:
+                print("[red]Name is too long. Use 18 characters or fewer.[/red]")
                 continue
             if name in self.used_names:
-                print("[red]That name is already taken. Choose another.[/red]")
+                print("[red]Name already taken. Choose another name.[/red]")
                 continue
             self.used_names.add(name)
             return name
