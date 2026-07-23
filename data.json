@@ -1,18 +1,24 @@
 [
   {
     "id": 1,
-    "name": "Akash",
-    "score": 5,
+    "name": "Tasir",
+    "score": 43,
     "turn_history": [
-      5
+      13,
+      9,
+      21,
+      0
     ]
   },
   {
     "id": 2,
-    "name": "Nusrat",
-    "score": 8,
+    "name": "Aksah",
+    "score": 53,
     "turn_history": [
-      8
+      18,
+      16,
+      13,
+      6
     ]
   }
 ]
