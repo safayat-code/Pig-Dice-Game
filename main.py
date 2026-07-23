@@ -180,7 +180,8 @@ class Game:
             print("[yellow]No saved game found. Starting fresh.[/yellow]")
             return False
         except (json.JSONDecodeError, ValueError, KeyError):
-            print("[red]Saved file is corrupted or invalid. Starting fresh.[/red]")
+            print("[red]Unable to load save file.[/red]")
+            print("[yellow]Starting a new game instead.[/yellow]")
             return False
 
     # player turn
@@ -233,8 +234,10 @@ class Game:
             loaded = self.load_game()
             if not loaded:
                 self.create_players()
+                print(f"[green]{len(self.players)} players are ready to play![/green]")
         else:
             self.create_players()
+            print(f"[green]{len(self.players)} players are ready to play![/green]")
 
         while True:
             for p in self.players:
