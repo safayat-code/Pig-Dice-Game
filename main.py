@@ -207,7 +207,11 @@ class Game:
                 break
 
             val = self.dice.roll()
-            print(f"[cyan]Dice: {val}[/cyan]")
+    
+            if val == 6:
+                print(f"[green]🎲 Dice: {val}[/green]")
+            else:
+                print(f"[cyan]🎲 Dice: {val}[/cyan]") 
 
             if val == 1:
                 print("[red]Rolled a 1. Turn score lost![/red]")
