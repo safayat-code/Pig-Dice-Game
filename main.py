@@ -22,19 +22,20 @@ class Dice:
         return random.randint(1, 6)
 
 
-# Player class
+# Player class 
+#player playing in the Pig Dice Game
 class Player:
     def __init__(self, id, name):
         self.id = id
         self.name = name
-        self.score = 0
+        self.score = 0 # Current total score
         self.turn_history = []  # list of past turn scores
 
     # get performance band
     def get_band(self):
-        for band_name, low, high in SCORE_BANDS:
-            if low <= self.score <= high:
-                return band_name
+        for band, minimum, maximum in SCORE_BANDS:
+            if minimum <= self.score <= maximum:
+                return band
         return "Unranked"
 
     # convert player to dictionary for saving
@@ -234,7 +235,6 @@ class Game:
             loaded = self.load_game()
             if not loaded:
                 self.create_players()
-                print(f"[green]{len(self.players)} players are ready to play![/green]")
         else:
             self.create_players()
             print(f"[green]{len(self.players)} players are ready to play![/green]")
