@@ -28,6 +28,7 @@ class Player:
     def __init__(self, id, name):
         self.id = id
         self.name = name
+        # Game progress
         self.score = 0 # Current total score
         self.turn_history = []  # list of past turn scores
 
@@ -40,12 +41,14 @@ class Player:
 
     # convert player to dictionary for saving
     def to_dict(self):
-        return {
+        player_data = {
             "id": self.id,
             "name": self.name,
             "score": self.score,
             "turn_history": self.turn_history,
         }
+        
+        return player_data
 
 
 # Game class
@@ -94,7 +97,7 @@ class Game:
 
     # show score board
     def show_scores(self):
-        table = Table(title="Score Board")
+        table = Table(title="[bold blue]Current Player Standings[/bold blue]")
         table.add_column("Player")
         table.add_column("Score")
         table.add_column("Band")
