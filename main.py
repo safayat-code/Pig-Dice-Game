@@ -253,9 +253,9 @@ class Game:
 
                 winner = self.check_winner()
                 if winner:
-                    print("\n" + "=" * 40)
+                    print("[bold blue]" + "═" * 45 + "[/bold blue]")
                     print("[bold green]🏆 GAME OVER 🏆[/bold green]")
-                    print("=" * 40)
+                    print("[bold blue]" + "═" * 45 + "[/bold blue]")
                     print(f"\n[bold green]Winner: {winner.name}[/bold green]")
                     print(f"Score: {winner.score}")
                     print(f"Performance Band: {winner.get_band()}")
