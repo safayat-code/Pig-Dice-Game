@@ -1,40 +1,16 @@
 [
   {
     "id": 1,
-    "name": "Tasir",
-    "score": 62,
+    "name": "ta",
+    "score": 8,
     "turn_history": [
-      14,
-      19,
-      0,
-      12,
-      13,
-      4,
-      0,
-      0,
-      0
+      8
     ]
   },
   {
     "id": 2,
-    "name": "Safyat",
-    "score": 8,
-    "turn_history": [
-      0,
-      0,
-      0,
-      8
-    ]
-  },
-  {
-    "id": 3,
-    "name": "Fahim",
-    "score": 26,
-    "turn_history": [
-      8,
-      0,
-      10,
-      8
-    ]
+    "name": "fa",
+    "score": 0,
+    "turn_history": []
   }
 ]

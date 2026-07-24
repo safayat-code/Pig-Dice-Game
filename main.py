@@ -216,11 +216,13 @@ class Game:
             else:
                 temp += val
 
-            print(f"Turn score so far: {temp}")
+            print(f"Turn score so far: {temp}\n")
 
         player.score += temp
         player.turn_history.append(temp)
         print(f"Total score: {player.score}")
+        remaining = WINNING_SCORE - player.score #added new
+        print(f"Points needed to win: {remaining}")
 
     # check winner
     def check_winner(self):
