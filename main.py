@@ -123,6 +123,7 @@ class Game:
         table.add_column("Metric", style="cyan", justify="left")
         table.add_column("Value", style="green", justify="center")
         table.add_row("Total turns played", str(arr.size))
+        table.add_row("Total Score", str(np.sum(arr)))
         table.add_row("Average Score per Turn", f"{np.mean(arr):.2f}")
         table.add_row("Highest turn score", str(np.max(arr)))
         table.add_row("Lowest turn score", str(np.min(arr)))
